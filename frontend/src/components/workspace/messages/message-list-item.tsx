@@ -98,7 +98,18 @@ function MessageImage({
     return <img className={imgClassName} src={src} alt={alt} {...props} />;
   }
 
-  const url = src.startsWith("/mnt/") ? resolveArtifactURL(src, threadId) : src;
+  // Handle artifact paths: /mnt/... paths, relative paths (e.g., ocean_poster.png),
+  // and external URLs (https://...)
+  let url: string;
+  if (src.startsWith("/mnt/")) {
+    url = resolveArtifactURL(src, threadId);
+  } else if (src.includes("://")) {
+    // External URL
+    url = src;
+  } else {
+    // Relative path - assume it's in outputs directory
+    url = resolveArtifactURL(`/mnt/user-data/outputs/${src}`, threadId);
+  }
 
   return (
     <a href={url} target="_blank" rel="noopener noreferrer">
