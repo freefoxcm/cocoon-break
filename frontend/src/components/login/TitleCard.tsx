@@ -11,7 +11,7 @@ export function TitleCard() {
     >
       <h1
         className="text-5xl font-semibold text-[#f0e6d0] md:text-6xl tracking-wide"
-        style={{ fontFamily: "'Cormorant Garamond', serif" }}
+        style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
       >
         Cocoon Break
       </h1>
