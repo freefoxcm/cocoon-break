@@ -1,6 +1,5 @@
 import { Background } from "@/components/login/Background";
 import { LoginCard } from "@/components/login/LoginCard";
-import { TitleCard } from "@/components/login/TitleCard";
 
 export default function LoginPage() {
   return (
@@ -8,14 +7,9 @@ export default function LoginPage() {
       {/* 背景层 */}
       <Background />
 
-      {/* 层叠布局 */}
+      {/* 居中卡片 */}
       <div className="relative z-10 flex h-screen items-center justify-center">
-        <div className="absolute top-1/2 -translate-y-6">
-          <TitleCard />
-        </div>
-        <div className="absolute top-1/2">
-          <LoginCard />
-        </div>
+        <LoginCard />
       </div>
     </main>
   );
