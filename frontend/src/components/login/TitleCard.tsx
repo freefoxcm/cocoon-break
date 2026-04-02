@@ -3,7 +3,7 @@
 export function TitleCard() {
   return (
     <div
-      className="relative z-10 flex flex-col items-start justify-center p-12"
+      className="relative z-10 flex flex-col items-start justify-center px-12 py-6"
       style={{
         backgroundColor: "rgba(255, 252, 245, 0.03)",
         backdropFilter: "blur(8px)",
