@@ -6,14 +6,12 @@ export function Background() {
       {/* 苔藓绿渐变底层 */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a3d2e] to-[#0d1f17]" />
 
-      {/* 破茧图片背景 */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/cocoon-break-bg.png')",
-          opacity: 0.45,
-          mixBlendMode: "soft-light",
-        }}
+      {/* 破茧图片背景 - 使用 img 标签便于控制透明度 */}
+      <img
+        src="/images/cocoon-break-bg.png"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: 0.5 }}
       />
 
       {/* 中心光晕效果 */}
