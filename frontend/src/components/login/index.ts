@@ -1,3 +1,4 @@
-export { WelcomeCard } from "./WelcomeCard";
-export { PrimaryButton } from "./PrimaryButton";
-export { ButterflyAnimation } from "./ButterflyAnimation";
+export { Background } from "./Background";
+export { Input } from "./Input";
+export { GradientButton } from "./GradientButton";
+export { LoginCard } from "./LoginCard";
