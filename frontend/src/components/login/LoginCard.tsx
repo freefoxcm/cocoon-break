@@ -27,8 +27,8 @@ export function LoginCard() {
     >
       {/* Logo 和标题 */}
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="font-serif text-3xl font-bold text-[#f0e6d0] md:text-4xl">
-          Cocoon Break
+        <h1 className="font-serif text-3xl font-bold text-[#f0e6d0] md:text-4xl" style={{ fontFamily: "'Noto Serif SC', serif" }}>
+          破茧
         </h1>
         <p className="italic text-lg text-[#c9b896] md:text-xl">
           Find Your Clarity
