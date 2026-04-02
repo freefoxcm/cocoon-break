@@ -8,10 +8,14 @@ export default function LoginPage() {
       {/* 背景层 */}
       <Background />
 
-      {/* 垂直居中的两卡片上下排列 */}
-      <div className="relative z-10 flex h-screen flex-col items-center justify-center gap-12">
-        <TitleCard />
-        <LoginCard />
+      {/* 层叠布局 */}
+      <div className="relative z-10 flex h-screen items-center justify-center">
+        <div className="absolute top-1/3 -translate-y-1/2">
+          <TitleCard />
+        </div>
+        <div className="absolute top-1/2">
+          <LoginCard />
+        </div>
       </div>
     </main>
   );
