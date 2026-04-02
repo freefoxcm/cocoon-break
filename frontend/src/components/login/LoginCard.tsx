@@ -25,6 +25,13 @@ export function LoginCard() {
         boxShadow: "0 0 80px rgba(255, 200, 100, 0.08), 0 0 120px rgba(255, 200, 100, 0.04)",
       }}
     >
+      {/* Logo */}
+      <img
+        src="/images/cocoon-logo.svg"
+        alt="logo"
+        className="mb-2 opacity-80"
+      />
+
       {/* 表单 */}
       <form className="w-full flex flex-col gap-4">
         <Input
