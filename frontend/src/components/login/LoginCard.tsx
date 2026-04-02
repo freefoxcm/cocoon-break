@@ -1,9 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { GradientButton } from "./GradientButton";
 import { Input } from "./Input";
 
 export function LoginCard() {
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/workspace");
+  };
+
   return (
     <div
       className="
@@ -31,7 +40,7 @@ export function LoginCard() {
       </p>
 
       {/* 表单 */}
-      <form className="w-full flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
         <Input
           type="text"
           placeholder="账号"
