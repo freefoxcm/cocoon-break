@@ -17,8 +17,7 @@ export function Background() {
           background-image: url('/images/cocoon-break-bg.png');
           background-size: cover;
           background-position: center;
-          opacity: 0.5;
-          mix-blend-mode: soft-light;
+          opacity: 0.7;
         }
         .bg-glow {
           position: absolute;
@@ -27,7 +26,7 @@ export function Background() {
           width: 800px;
           height: 800px;
           transform: translate(-50%, -50%);
-          background: radial-gradient(circle, rgba(255,200,100,0.35) 0%, transparent 60%);
+          background: radial-gradient(circle, rgba(255,200,100,0.2) 0%, transparent 60%);
           filter: blur(80px);
           pointer-events: none;
         }
