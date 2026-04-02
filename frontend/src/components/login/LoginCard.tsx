@@ -17,11 +17,11 @@ export function LoginCard() {
     <div
       className="
         relative z-10
-        w-full max-w-[400px]
+        w-full max-w-[340px]
         rounded-2xl
         border border-white/[0.06]
         bg-white/8
-        p-10
+        p-8
         backdrop-blur-md
         flex
         flex-col
@@ -34,20 +34,6 @@ export function LoginCard() {
         boxShadow: "0 0 80px rgba(255, 200, 100, 0.08), 0 0 120px rgba(255, 200, 100, 0.04)",
       }}
     >
-      {/* 标题 */}
-      <h1
-        className="text-4xl font-semibold text-[#f0e6d0] tracking-wide"
-        style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
-      >
-        Cocoon Break
-      </h1>
-      <p className="italic text-lg text-[#c9b896]">
-        # See Through the Cocoon _
-      </p>
-
-      {/* 分隔线 */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
       {/* 登录标题 */}
       <p className="text-sm tracking-[0.3em] text-[#c9b896] uppercase">
         Login
