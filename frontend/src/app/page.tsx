@@ -1,25 +1,16 @@
-import { Footer } from "@/components/landing/footer";
-import { Header } from "@/components/landing/header";
-import { Hero } from "@/components/landing/hero";
-import { CaseStudySection } from "@/components/landing/sections/case-study-section";
-import { CommunitySection } from "@/components/landing/sections/community-section";
-import { SandboxSection } from "@/components/landing/sections/sandbox-section";
-import { SkillsSection } from "@/components/landing/sections/skills-section";
-import { WhatsNewSection } from "@/components/landing/sections/whats-new-section";
+import { WelcomeCard } from "@/components/login";
+import { ButterflyAnimation } from "@/components/login";
 
-export default function LandingPage() {
+export default function WelcomePage() {
   return (
-    <div className="min-h-screen w-full bg-[#0a0a0a]">
-      <Header />
-      <main className="flex w-full flex-col">
-        <Hero />
-        <CaseStudySection />
-        <SkillsSection />
-        <SandboxSection />
-        <WhatsNewSection />
-        <CommunitySection />
-      </main>
-      <Footer />
-    </div>
+    <main className="bg-sunrise relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden">
+      {/* Butterfly animation overlay */}
+      <ButterflyAnimation />
+
+      {/* Centered welcome card */}
+      <div className="relative z-10 flex h-full w-full items-center justify-center px-6">
+        <WelcomeCard />
+      </div>
+    </main>
   );
 }
