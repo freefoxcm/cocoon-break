@@ -9,7 +9,7 @@ export default function LoginPage() {
       <Background />
 
       {/* 左侧标题卡片 */}
-      <div className="absolute left-1/4 top-1/2 z-10 -translate-y-1/2">
+      <div className="absolute left-16 bottom-24 z-10">
         <TitleCard />
       </div>
 
