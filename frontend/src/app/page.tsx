@@ -16,7 +16,7 @@ export default function LoginPage() {
       {/* 标题卡片 - 垂直水平居中 */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
         <div
-          className="flex flex-col items-start justify-start p-12"
+          className="flex flex-col items-start justify-between p-8"
           style={{
             backgroundColor: "rgba(255, 252, 245, 0.03)",
             backdropFilter: "blur(8px)",
