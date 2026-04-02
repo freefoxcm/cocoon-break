@@ -51,20 +51,6 @@ export function LoginCard() {
         </div>
       </form>
 
-      {/* 底部链接 */}
-      <div className="mt-2">
-        <a
-          href="#"
-          className="
-            text-sm text-[#c9b896]
-            hover:text-[#f0e6d0]
-            hover:underline
-            transition-colors duration-200
-          "
-        >
-          More →
-        </a>
-      </div>
     </div>
   );
 }
