@@ -408,6 +408,34 @@
     -webkit-text-fill-color: transparent;
     text-fill-color: transparent;
   }
+
+  /* Sunrise gradient background for welcome page */
+  .bg-sunrise {
+    background: linear-gradient(
+      to top,
+      #FF8C42 0%,   /* Deep orange - bottom */
+      #FFD700 40%,  /* Golden yellow - middle */
+      #FFB6C1 100%  /* Soft pink - top */
+    );
+    position: relative;
+  }
+
+  .bg-sunrise::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 40%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 248, 220, 0.6) 0%,   /* Light cream center */
+      rgba(255, 215, 0, 0.3) 40%,    /* Golden glow */
+      transparent 70%
+    );
+    pointer-events: none;
+  }
 }
 
 :root {
