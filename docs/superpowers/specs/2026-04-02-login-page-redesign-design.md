@@ -1,184 +1,229 @@
-# Cocoon Break 登录页重新设计
+# 登录页重设计 - 设计规范
+
+**日期：** 2026-04-02
+**状态：** 已确认
+**版本：** 1.0
+
+---
 
 ## 1. 概念与愿景
 
-Cocoon Break 是一个 AI SuperAgent 平台，"茧"象征用户当前的困境/局限，"破茧"代表 AI 帮助用户突破、释放生产力。登录页作为用户的第一印象，需要传达温暖、希望、新生的感觉，让用户感受到"进入后将被赋能"。
+将登录页从"蝴蝶动画欢迎页"重新设计为"晨雾森林"风格的认证页面。整体氛围宁静禅意，破茧光芒若隐若现，传达"突破与蜕变"的主题。用户进入时感受到的是清晨森林的静谧，而非喧嚣的动效。
 
-**设计主题**：晨曦破晓 — 温暖的橙黄渐变天空下，蝴蝶从茧中破壳而出，飞向新生。
+---
 
 ## 2. 设计语言
 
 ### 美学方向
-自然生命风 + 晨曦暖色调。参考破茧成蝶的生命周期，传达希望与蜕变。
 
-### 色彩系统
-| 角色 | 色值 | 用途 |
+**森林系 + 破茧光芒**
+- 深苔藓绿渐变背景，如清晨薄雾笼罩的森林
+- 破茧图片叠加，降低透明度呈现朦胧美感
+- 金色光晕从茧的位置向外晕开，象征突破
+
+### 配色方案
+
+| 元素 | 颜色 | 说明 |
 |------|------|------|
-| 背景深橙 | #FF8C42 | 背景底部 |
-| 背景金黄 | #FFD700 | 背景中层 |
-| 背景淡粉 | #FFB6C1 | 背景顶部 |
-| 光晕中心 | #FFF8DC | 径向光晕核心 |
-| 文字主色 | #FFFFFF | 标题、输入框文字 |
-| 文字次色 | rgba(255,255,255,0.7) | placeholder、次要文字 |
-| 卡片背景 | rgba(255,255,255,0.15) | 毛玻璃登录卡片 (glassmorphism) |
-| 卡片边框 | rgba(255,255,255,0.2) | 卡片边框 |
-| 按钮主色 | #FF8C42 | 登录按钮背景 |
-| 按钮悬停 | #FFA060 | 按钮 hover |
-
-**设计系统参考**（ui-ux-pro-max）：
-- **风格**: Nature Distilled + Glassmorphism — 自然暖色调 + 毛玻璃效果
-- **动效**: ease-out 入场, ease-in 退场; 150-300ms 微交互; 尊重 prefers-reduced-motion
+| 背景渐变起点 | `#1a3d2e` | 深苔藓绿 |
+| 背景渐变终点 | `#0d1f17` | 墨绿 |
+| 卡片背景 | `rgba(255, 252, 245, 0.08)` | 米白透明 |
+| 文字主色 | `#f5f0e8` | 暖白 |
+| 文字次色 | `#a8c5b8` | 淡绿灰 |
+| 输入框边框 | `#3d5c4a` | 暗绿 |
+| 按钮背景 | `#3d5c4a` | 暗绿 |
+| 按钮悬停 | `#4a6d58` | 提亮 |
+| 光晕色 | `rgba(255, 200, 100, 0.3)` | 暖金色 |
 
 ### 字体
-- **主标题**: Lora (Google Fonts)，字重 700，渐变填充
-- **副标题/正文**: Raleway (Google Fonts)，字重 400-500
-- **字重层级**: 标题 Bold (700)，正文 Regular (400)，标签 Medium (500)
-- **Google Fonts**: `@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700|Raleway:wght@300;400;500;600;700')`
+
+- **标题：** Lora（衬线，优雅感）
+- **正文/输入框：** Inter 或系统 sans-serif
+- **英文副标题：** Lora italic
 
 ### 空间系统
-- 登录卡片最大宽度：420px
-- 卡片内边距：40px（桌面）/ 24px（移动）
-- 元素间距：16px / 24px 节奏
-- 圆角：24px（大卡片）/ 12px（输入框/按钮）
+
+- 卡片宽度：380px
+- 卡片圆角：16px
+- 输入框高度：48px
+- 输入框圆角：8px
+- 按钮高度：48px
+- 按钮圆角：8px
+- 卡片内边距：40px
 
 ### 动效哲学
-- **破茧动画**：缓慢、庄严、有张力，暗示蜕变的重量
-- **飞舞动画**：轻盈、自由、循环，象征解脱后的自由
-- **UI 交互**：微妙的 hover/press 反馈，温暖不突兀
+
+**宁静克制，无过度动效**
+- 无蝴蝶飞舞动画
+- 无页面元素微动
+- 仅保留 hover 状态的平滑过渡（200ms ease-out）
+- 背景图片和光晕为静态呈现
+
+---
 
 ## 3. 布局与结构
 
-### 页面结构
+### 页面层次（从底到顶）
+
 ```
-┌─────────────────────────────────────┐
-│           全屏渐变背景                │
-│  ┌─────────────────────────────┐   │
-│  │     径向光晕（中心偏上）        │   │
-│  └─────────────────────────────┘   │
-│                                     │
-│        ┌──────────────────┐         │
-│        │   毛玻璃欢迎卡片   │         │
-│        │   ┌──────────┐   │         │
-│        │   │  Logo    │   │         │
-│        │   │ 标题文案  │   │         │
-│        │   │进入按钮  │   │         │
-│        │   └──────────┘   │         │
-│        └──────────────────┘         │
-│                                     │
-│   🦋 蝴蝶飞舞动画叠加在背景上         │
-└─────────────────────────────────────┘
+┌──────────────────────────────────────────┐
+│  Layer 1: 破茧图片背景（全屏，opacity 30%）│
+│  Layer 2: CSS 光晕（茧位置，模糊渐变）      │
+│  Layer 3: 苔藓绿渐变叠加（opacity 85%）    │
+│  Layer 4: 居中米白半透明卡片               │
+│  Layer 5: 卡片内容（Logo、表单、链接）      │
+└──────────────────────────────────────────┘
+```
+
+### 卡片内容结构
+
+```
+┌──────────────────────────────┐
+│                              │
+│     🌿 Cocoon Break          │  ← Logo + 小树叶 SVG
+│     *Find Your Clarity*      │  ← 英文副标题（斜体）
+│                              │
+│     ┌────────────────────┐   │
+│     │  账号               │   │  ← 账号输入框
+│     └────────────────────┘   │
+│     ┌────────────────────┐   │
+│     │  密码               │   │  ← 密码输入框
+│     └────────────────────┘   │
+│                              │
+│     [     进入探索     ]      │  ← 登录按钮
+│                              │
+│       探索更多 →              │  ← 底部链接
+│                              │
+└──────────────────────────────┘
 ```
 
 ### 响应式策略
-- **桌面端 (>768px)**：登录卡片居中，宽度 400-420px
-- **移动端 (≤768px)**：登录卡片撑满宽度（左右 24px 边距），内边距缩小
+
+- 移动端：卡片宽度 100% - 48px（左右各 24px 边距）
+- 桌面端：卡片固定 380px 宽度
+- 内容垂直居中于视口
+
+---
 
 ## 4. 功能与交互
 
-### 欢迎卡片交互
-- **标题文案**："破茧而出，释放你的生产力"
-- **进入按钮**：文字 "开始探索"，点击后跳转到 `/workspace`
-- **点击反馈**：按钮 scale 缩小 + 跳转前短暂渐黑过渡
+### 核心功能
 
-### 蝴蝶动画序列
-1. **Phase 1 — 破茧**（持续 3 秒，页面加载后播放一次）
-   - 茧壳从底部中央出现
-   - 茧壳缓慢裂开
-   - 蝴蝶从中缓缓爬出，翅膀折叠
-   - 翅膀逐渐展开至完全状态
+- **账号输入**：文本输入框，placeholder "账号"
+- **密码输入**：密码输入框，placeholder "密码"，显示/隐藏切换按钮（后续完善）
+- **登录按钮**：暗绿背景 + 米白文字，点击后触发登录流程（当前仅为 UI）
+- **探索更多链接**：文字链接，hover 时下划线出现（后续链接到关于页）
 
-2. **Phase 2 — 飞舞**（破茧完成后循环）
-   - 蝴蝶向上飘动，伴随轻微左右摇摆
-   - 翅膀以较低频率扇动
-   - 到达画面中上部后，渐隐并重新从底部飘出
-   - 飘动路径略带曲线，非直线
+### 交互细节
+
+| 元素 | 默认状态 | Hover 状态 | Active 状态 |
+|------|----------|------------|-------------|
+| 输入框 | 底部边框 #3d5c4a | 边框提亮 #4a6d58 | 边框变为 #f5f0e8 |
+| 登录按钮 | bg #3d5c4a | bg #4a6d58 | scale 0.98 |
+| 探索更多链接 | 无下划线 | 下划线出现 | color 变亮 |
+
+### 当前状态说明
+
+登录流程暂不实现，仅完成 UI 界面。输入框和按钮均为静态 UI，登录逻辑后续开发。
+
+---
 
 ## 5. 组件清单
 
-### WelcomeCard
-- 毛玻璃背景：`backdrop-blur-xl bg-white/15` (glassmorphism 15-30% opacity)
-- 边框：`border border-white/20`
-- 圆角：`rounded-3xl` (16px+)
-- 阴影：`shadow-2xl`
-- **CSS**: `backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px)`
-- 内容：Logo + 标题 + 副标题 + 进入按钮
+### LoginCard 组件
 
-### PrimaryButton
-- 背景：`bg-gradient-to-r from-[#FF8C42] to-[#FFB6C1]`
-- 高度：56px（满足 44px+ 触摸目标）
-- 圆角：`rounded-xl` (16px)
-- 文字：白色，字重 600
-- **动效**: scale press 0.96→1.0, ease-out 150-300ms
-- **States**:
-  - Default：渐变背景
-  - Hover：亮度增加 + scale(1.02)
-  - Active：scale(0.98)
-  - **必须添加**: `cursor-pointer` on hover
+- **文件位置：** `frontend/src/components/login/LoginCard.tsx`
+- **功能：** 居中卡片容器，包含 Logo、表单、按钮、链接
+- **Props：** 无
+- **状态：** 仅默认状态
 
-### ButterflyAnimation
-- 实现方式：CSS Keyframes + SVG 蝴蝶路径
-- 破茧阶段：3s ease-out
-- 飞舞阶段：8s ease-in-out infinite
-- 翅膀扇动：0.3s ease-in-out infinite（与飞舞叠加）
-- **无障碍支持**：检测 `prefers-reduced-motion`，如果用户偏好减少动画则只显示静态蝴蝶或完全禁用动画
+### Input 组件
+
+- **文件位置：** `frontend/src/components/login/Input.tsx`
+- **功能：** 统一样式的输入框
+- **Props：** `type`, `placeholder`, `value`, `onChange`
+- **状态：** default, focus, error（error 状态后续完善）
+
+### Button 组件
+
+- **复用现有 PrimaryButton**，或创建 LoginButton 变体
+
+### Background 组件
+
+- **文件位置：** `frontend/src/components/login/Background.tsx`
+- **功能：** 全屏背景层叠（图片 + 光晕 + 渐变）
+- **Props：** 无
+
+---
 
 ## 6. 技术方案
 
-### 前端框架
-- Next.js 16 (App Router)
-- React 19
-- Tailwind CSS 4
+### 框架
 
-### 实现方式
-- 背景：CSS 渐变 + 径向光晕
-- 蝴蝶动画：CSS @keyframes + SVG 蝴蝶路径
-- 毛玻璃效果：`backdrop-blur-xl`
-- 动画性能：使用 `will-change` 优化
+- **前端框架：** Next.js 16 + React 19 + TypeScript
+- **样式：** Tailwind CSS 4 + CSS 自定义属性
+- **字体：** Google Fonts（Lora, Inter）
 
-### 文件结构
+### 文件变更
+
+| 操作 | 文件路径 |
+|------|----------|
+| 新增 | `frontend/src/components/login/LoginCard.tsx` |
+| 新增 | `frontend/src/components/login/Input.tsx` |
+| 新增 | `frontend/src/components/login/Background.tsx` |
+| 新增 | `frontend/src/components/login/GradientButton.tsx` |
+| 修改 | `frontend/src/app/page.tsx` |
+| 修改 | `frontend/src/app/globals.css` |
+| 移动/删除 | `frontend/src/components/login/PrimaryButton.tsx`（如不复用） |
+| 移动/删除 | `frontend/src/components/login/WelcomeCard.tsx`（如不复用） |
+| 移动/删除 | `frontend/src/components/login/ButterflyAnimation.tsx` |
+
+### 背景实现
+
+```tsx
+// Background.tsx 简化结构
+<div className="fixed inset-0 z-0">
+  {/* 破茧图片 */}
+  <div
+    className="absolute inset-0 bg-cover bg-center"
+    style={{
+      backgroundImage: "url('/images/cocoon-break-bg.png')",
+      opacity: 0.3,
+    }}
+  />
+  {/* 光晕 */}
+  <div
+    className="absolute left-1/2 top-1/2 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2"
+    style={{
+      background: "radial-gradient(circle, rgba(255,200,100,0.3) 0%, transparent 70%)",
+      filter: "blur(60px)",
+    }}
+  />
+  {/* 渐变叠加 */}
+  <div className="absolute inset-0 bg-gradient-to-b from-[#1a3d2e] to-[#0d1f17] opacity-90" />
+</div>
 ```
-frontend/src/
-├── app/
-│   ├── page.tsx              # 重构为欢迎页
-│   └── workspace/
-│       └── ...                # 现有工作区路由不变
-├── components/
-│   ├── login/
-│   │   ├── WelcomeCard.tsx    # 欢迎卡片组件
-│   │   ├── PrimaryButton.tsx  # 按钮组件
-│   │   └── ButterflyAnimation.tsx  # 蝴蝶动画组件
-│   └── landing/               # 现有 landing 组件（暂不使用）
-```
 
-### 后续扩展
-- 认证功能（账号密码/OAuth）可后续独立实现
-- 当前点击直接进入 workspace
+---
 
-## 7. 海报素材
+## 7. 资源清单
 
-已生成海报图片：`minimax-output/sunrise_butterfly.png`
+### 图片
 
-作为背景的补充/备选方案。如采用纯代码实现背景，则此图片可作为 static background 引用。
+| 文件 | 路径 | 说明 |
+|------|------|------|
+| 破茧背景图 | `public/images/cocoon-break-bg.png` | AI 生成的全屏背景图 |
 
-## 8. 交付检查清单
+### 依赖
 
-**视觉质量**
-- [ ] 无 emoji 作为图标（使用 Lucide SVG）
-- [ ] 所有图标样式一致（stroke width, corner radius）
-- [ ] 按钮 hover 状态有平滑过渡（150-300ms）
+无新增依赖，使用现有 Google Fonts 配置。
 
-**交互**
-- [ ] 所有可点击元素添加 `cursor-pointer`
-- [ ] 触摸目标 ≥44×44px
-- [ ] 按钮按压有 scale 反馈 (0.95-0.98)
-- [ ] 禁用状态有视觉区分
+---
 
-**无障碍**
-- [ ] 检测 `prefers-reduced-motion`，用户偏好减少动画时禁用蝴蝶动画
-- [ ] 文字对比度 ≥4.5:1
-- [ ] 所有图标/图片有 aria-label
+## 8. 后续计划
 
-**响应式**
-- [ ] 375px / 768px / 1024px / 1440px 断点测试
-- [ ] 移动端布局正确
-
+- [ ] 实现真实登录流程（API 集成）
+- [ ] 输入框错误状态处理
+- [ ] 密码显示/隐藏切换
+- [ ] 表单验证
+- [ ] 登录按钮 loading 状态
