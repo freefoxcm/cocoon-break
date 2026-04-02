@@ -7,7 +7,7 @@ export function TitleCard() {
       style={{
         backgroundColor: "rgba(255, 252, 245, 0.03)",
         backdropFilter: "blur(8px)",
-        minWidth: "500px",
+        minWidth: "650px",
       }}
     >
       <h1
