@@ -3,13 +3,41 @@
 import { useState } from "react";
 import { Background } from "@/components/login/Background";
 import { LoginCard } from "@/components/login/LoginCard";
-import { GradientButton } from "@/components/login/GradientButton";
 
 export default function LoginPage() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
     <main className="relative flex min-h-screen w-full flex-col overflow-hidden">
+      <style jsx>{`
+        .login-slide-in {
+          animation: slideIn 0.4s ease-out forwards;
+        }
+        .login-slide-out {
+          animation: slideOut 0.4s ease-out forwards;
+        }
+        @keyframes slideIn {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+        @keyframes slideOut {
+          from {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          to {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+      `}</style>
+
       {/* 背景层 */}
       <Background />
 
@@ -33,31 +61,32 @@ export default function LoginPage() {
             # See Through the Cocoon _
           </p>
 
-          {!showLogin && (
-            <div className="self-end">
-              <button
-                onClick={() => setShowLogin(true)}
-                className="mt-4 px-6 py-2 rounded-lg text-sm tracking-[0.2em] text-[#f0e6d0] hover:brightness-110 active:scale-[0.98] transition-all duration-200"
-                style={{
-                  backgroundColor: "rgba(180, 140, 80, 0.3)",
-                  backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
-                  border: "1px solid rgba(200, 160, 100, 0.3)",
-                }}
-              >
-                Continue →
-              </button>
-            </div>
-          )}
+          <div className="self-end">
+            <button
+              onClick={() => setShowLogin(!showLogin)}
+              className="mt-4 px-6 py-2 rounded-lg text-sm tracking-[0.2em] text-[#f0e6d0] hover:brightness-110 active:scale-[0.98] transition-all duration-200"
+              style={{
+                backgroundColor: "rgba(180, 140, 80, 0.3)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: "1px solid rgba(200, 160, 100, 0.3)",
+              }}
+            >
+              {showLogin ? "← Back" : "Continue →"}
+            </button>
+          </div>
         </div>
       </div>
 
       {/* 登录卡片 */}
-      {showLogin && (
-        <div className="relative z-10 flex h-screen items-center justify-end px-12">
-          <LoginCard />
-        </div>
-      )}
+      <div
+        className={`relative z-10 flex h-screen items-center justify-end px-12 ${showLogin ? "login-slide-in" : "login-slide-out"}`}
+        style={{
+          pointerEvents: showLogin ? "auto" : "none",
+        }}
+      >
+        {showLogin && <LoginCard />}
+      </div>
     </main>
   );
 }
