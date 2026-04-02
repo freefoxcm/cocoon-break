@@ -18,11 +18,11 @@ export function GradientButton({
       type="button"
       className={cn(
         "h-12 w-full cursor-pointer rounded-lg",
-        "bg-[#3d5c4a] text-[#f5f0e8] font-semibold",
+        "bg-[#6b5a42] text-[#f0e6d0] font-semibold",
         "transition-all duration-200 ease-out",
-        "hover:bg-[#4a6d58]",
+        "hover:bg-[#7d6b50]",
         "active:scale-[0.98]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f5f0e8]/50",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8c896]/50",
         className
       )}
       {...props}

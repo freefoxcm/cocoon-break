@@ -27,10 +27,10 @@ export function LoginCard() {
     >
       {/* Logo 和标题 */}
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="font-serif text-3xl font-bold text-[#f5f0e8] md:text-4xl">
+        <h1 className="font-serif text-3xl font-bold text-[#f0e6d0] md:text-4xl">
           Cocoon Break
         </h1>
-        <p className="italic text-lg text-[#a8c5b8] md:text-xl">
+        <p className="italic text-lg text-[#c9b896] md:text-xl">
           Find Your Clarity
         </p>
       </div>
@@ -64,8 +64,8 @@ export function LoginCard() {
         <a
           href="#"
           className="
-            text-sm text-[#a8c5b8]
-            hover:text-[#f5f0e8]
+            text-sm text-[#c9b896]
+            hover:text-[#f0e6d0]
             hover:underline
             transition-colors duration-200
           "

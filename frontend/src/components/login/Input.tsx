@@ -19,10 +19,10 @@ export function Input({ label, className, ...props }: InputProps) {
       <input
         className={cn(
           "w-full h-12 px-4 bg-transparent",
-          "border-b border-[#3d5c4a]",
-          "text-[#f5f0e8] placeholder:text-[#a8c5b8]/60",
+          "border-b border-[#6b5a42]",
+          "text-[#f5f0e8] placeholder:text-[#c9b896]/60",
           "transition-colors duration-200",
-          "focus:outline-none focus:border-[#f5f0e8]",
+          "focus:outline-none focus:border-[#e8c896]",
           className
         )}
         {...props}
