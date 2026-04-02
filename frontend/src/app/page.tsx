@@ -37,7 +37,13 @@ export default function LoginPage() {
             <div className="self-end">
               <button
                 onClick={() => setShowLogin(true)}
-                className="mt-4 text-sm tracking-[0.2em] text-[#c9b896] hover:text-[#f0e6d0] transition-colors duration-200"
+                className="mt-4 px-6 py-2 rounded-lg text-sm tracking-[0.2em] text-[#f0e6d0] hover:brightness-110 active:scale-[0.98] transition-all duration-200"
+                style={{
+                  backgroundColor: "rgba(180, 140, 80, 0.3)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  border: "1px solid rgba(200, 160, 100, 0.3)",
+                }}
               >
                 Continue →
               </button>
