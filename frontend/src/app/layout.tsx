@@ -10,30 +10,31 @@ import { detectLocaleServer } from "@/core/i18n/server";
 export const metadata: Metadata = {
   title: "Cocoon Break",
   description: "A LangChain-based framework for building super agents.",
-  links: [
-    {
-      rel: "preconnect",
-      href: "https://fonts.googleapis.com",
-    },
-    {
-      rel: "preconnect",
-      href: "https://fonts.gstatic.com",
-      crossOrigin: "anonymous",
-    },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap",
-    },
-    {
-      rel: "stylesheet",
-      href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.2.8/geist-all.css",
-    },
-    {
-      rel: "stylesheet",
-      href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.2.7/geist-mono-all.css",
-    },
-  ],
 };
+
+export const links = [
+  {
+    rel: "preconnect",
+    href: "https://fonts.googleapis.com",
+  },
+  {
+    rel: "preconnect",
+    href: "https://fonts.gstatic.com",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist@5.2.8/geist-all.css",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.2.7/geist-mono-all.css",
+  },
+];
 
 export default async function RootLayout({
   children,

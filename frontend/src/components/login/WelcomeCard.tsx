@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+
 import { PrimaryButton } from "./PrimaryButton";
 
 export function WelcomeCard() {

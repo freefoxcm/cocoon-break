@@ -1,7 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { type ButtonHTMLAttributes } from "react";
+
+import { cn } from "@/lib/utils";
 
 interface PrimaryButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
