@@ -243,7 +243,7 @@ export function ArtifactFileDetail({
           </ArtifactActions>
         </div>
       </ArtifactHeader>
-      <ArtifactContent className="p-0 pb-12">
+      <ArtifactContent className="p-0 pb-4">
         {isSupportPreview &&
           viewMode === "preview" &&
           (language === "markdown" || language === "html") && (
