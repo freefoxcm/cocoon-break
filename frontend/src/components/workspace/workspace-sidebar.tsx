@@ -23,6 +23,7 @@ export function WorkspaceSidebar({
       <Sidebar
         variant="floating"
         collapsible="offcanvas"
+        defaultOpen={true}
         className="[&_[data-slot=sidebar-inner]]:!bg-background/80 [&_[data-slot=sidebar-inner]]:backdrop-blur-md"
         {...props}
       >
