@@ -87,7 +87,7 @@ const ChatBox: React.FC<{ children: React.ReactNode; threadId: string }> = ({
       {/* Floating Artifacts Panel */}
       <div
         className={cn(
-          "fixed right-0 top-0 bottom-0 z-50 flex flex-col border-l bg-background/80 backdrop-blur-md transition-transform duration-300 ease-in-out",
+          "fixed right-0 top-4 bottom-4 z-50 flex flex-col rounded-l-xl border bg-background/90 backdrop-blur-xl shadow-lg transition-transform duration-300 ease-in-out",
           "w-[min(40vw,600px)] max-w-[600px] min-w-[320px]",
           artifactsOpen ? "translate-x-0" : "translate-x-full"
         )}
