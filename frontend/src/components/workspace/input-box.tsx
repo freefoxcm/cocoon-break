@@ -110,8 +110,13 @@ export function InputBox({
   initialValue,
   onContextChange,
   onFollowupsVisibilityChange,
+  onFollowupsChange,
+  onFollowupsLoadingChange,
   onSubmit,
   onStop,
+  suggestions,
+  onSuggestionClick,
+  hideInternalSuggestions,
   ...props
 }: Omit<ComponentProps<typeof PromptInput>, "onSubmit"> & {
   assistantId?: string | null;
@@ -138,8 +143,13 @@ export function InputBox({
     },
   ) => void;
   onFollowupsVisibilityChange?: (visible: boolean) => void;
+  onFollowupsChange?: (followups: string[]) => void;
+  onFollowupsLoadingChange?: (loading: boolean) => void;
   onSubmit?: (message: PromptInputMessage) => void;
   onStop?: () => void;
+  suggestions?: string[];
+  onSuggestionClick?: (suggestion: string) => void;
+  hideInternalSuggestions?: boolean;
 }) {
   const { t } = useI18n();
   const searchParams = useSearchParams();
@@ -344,10 +354,20 @@ export function InputBox({
     (followupsLoading || followups.length > 0);
 
   const followupsVisibilityChangeRef = useRef(onFollowupsVisibilityChange);
+  const onFollowupsChangeRef = useRef(onFollowupsChange);
+  const onFollowupsLoadingChangeRef = useRef(onFollowupsLoadingChange);
 
   useEffect(() => {
     followupsVisibilityChangeRef.current = onFollowupsVisibilityChange;
   }, [onFollowupsVisibilityChange]);
+
+  useEffect(() => {
+    onFollowupsChangeRef.current = onFollowupsChange;
+  }, [onFollowupsChange]);
+
+  useEffect(() => {
+    onFollowupsLoadingChangeRef.current = onFollowupsLoadingChange;
+  }, [onFollowupsLoadingChange]);
 
   useEffect(() => {
     followupsVisibilityChangeRef.current?.(showFollowups);
@@ -393,6 +413,7 @@ export function InputBox({
     const controller = new AbortController();
     setFollowupsHidden(false);
     setFollowupsLoading(true);
+    onFollowupsLoadingChangeRef.current?.(true);
     setFollowups([]);
 
     fetch(`${getBackendBaseURL()}/api/threads/${threadId}/suggestions`, {
@@ -417,12 +438,14 @@ export function InputBox({
           .filter((s) => s.length > 0)
           .slice(0, 5);
         setFollowups(suggestions);
+        onFollowupsChangeRef.current?.(suggestions);
       })
       .catch(() => {
         setFollowups([]);
       })
       .finally(() => {
         setFollowupsLoading(false);
+        onFollowupsLoadingChangeRef.current?.(false);
       });
 
     return () => controller.abort();
@@ -430,32 +453,38 @@ export function InputBox({
 
   return (
     <div ref={promptRootRef} className="relative flex flex-col gap-4">
-      {showFollowups && (
+      {showFollowups && !hideInternalSuggestions && (
         <div className="flex items-center justify-center pb-2">
           <div className="flex items-center gap-2">
-            {followupsLoading ? (
+            {followupsLoading && !suggestions ? (
               <div className="text-muted-foreground bg-background/80 rounded-full border px-4 py-2 text-xs backdrop-blur-sm">
                 {t.inputBox.followupLoading}
               </div>
             ) : (
               <Suggestions className="min-h-16 w-fit items-start">
-                {followups.map((s) => (
+                {(suggestions ?? followups).map((s) => (
                   <Suggestion
                     key={s}
                     suggestion={s}
-                    onClick={() => handleFollowupClick(s)}
+                    onClick={() =>
+                      onSuggestionClick
+                        ? onSuggestionClick(s)
+                        : handleFollowupClick(s)
+                    }
                   />
                 ))}
-                <Button
-                  aria-label={t.common.close}
-                  className="text-muted-foreground cursor-pointer rounded-full px-3 text-xs font-normal"
-                  variant="outline"
-                  size="sm"
-                  type="button"
-                  onClick={() => setFollowupsHidden(true)}
-                >
-                  <XIcon className="size-4" />
-                </Button>
+                {!onSuggestionClick && (
+                  <Button
+                    aria-label={t.common.close}
+                    className="text-muted-foreground cursor-pointer rounded-full px-3 text-xs font-normal"
+                    variant="outline"
+                    size="sm"
+                    type="button"
+                    onClick={() => setFollowupsHidden(true)}
+                  >
+                    <XIcon className="size-4" />
+                  </Button>
+                )}
               </Suggestions>
             )}
           </div>

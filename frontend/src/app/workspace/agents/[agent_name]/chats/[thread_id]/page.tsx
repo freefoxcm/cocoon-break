@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
+import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
 import { Button } from "@/components/ui/button";
 import { AgentWelcome } from "@/components/workspace/agent-welcome";
 import { ArtifactTrigger } from "@/components/workspace/artifacts";
@@ -33,6 +34,8 @@ import { cn } from "@/lib/utils";
 export default function AgentChatPage() {
   const { t } = useI18n();
   const [showFollowups, setShowFollowups] = useState(false);
+  const [followups, setFollowups] = useState<string[]>([]);
+  const [followupsLoading, setFollowupsLoading] = useState(false);
   const router = useRouter();
 
   const { agent_name } = useParams<{
@@ -154,6 +157,38 @@ export default function AgentChatPage() {
               >
                 <div className="absolute -top-4 right-0 left-0 z-0">
                   <div className="absolute right-0 bottom-0 left-0">
+                    {showFollowups && (followupsLoading || followups.length > 0) && (
+                      <div className="flex items-center justify-center px-4 pt-2">
+                        {followupsLoading ? (
+                          <div className="text-muted-foreground bg-background/80 rounded-full border px-4 py-2 text-xs backdrop-blur-sm">
+                            {t.inputBox.followupLoading}
+                          </div>
+                        ) : (
+                          <Suggestions className="w-fit items-start">
+                            {followups.map((s) => (
+                              <Suggestion
+                                key={s}
+                                suggestion={s}
+                                onClick={() => {
+                                  // Handle suggestion click - submit to input
+                                  const textarea =
+                                    document.querySelector<HTMLTextAreaElement>(
+                                      "textarea[name='message']",
+                                    );
+                                  if (textarea) {
+                                    textarea.value = s;
+                                    textarea.dispatchEvent(
+                                      new Event("input", { bubbles: true }),
+                                    );
+                                    textarea.focus();
+                                  }
+                                }}
+                              />
+                            ))}
+                          </Suggestions>
+                        )}
+                      </div>
+                    )}
                     <TodoList
                       className="bg-background/5"
                       todos={thread.values.todos ?? []}
@@ -185,8 +220,13 @@ export default function AgentChatPage() {
                   disabled={env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true"}
                   onContextChange={(context) => setSettings("context", context)}
                   onFollowupsVisibilityChange={setShowFollowups}
+                  onFollowupsChange={setFollowups}
+                  onFollowupsLoadingChange={setFollowupsLoading}
                   onSubmit={handleSubmit}
                   onStop={handleStop}
+                  hideInternalSuggestions={
+                    !!thread.values.todos && thread.values.todos.length > 0
+                  }
                 />
                 {env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true" && (
                   <div className="text-muted-foreground/67 w-full translate-y-12 text-center text-xs">
