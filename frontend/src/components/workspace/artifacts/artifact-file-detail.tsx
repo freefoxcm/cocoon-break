@@ -30,7 +30,7 @@ import {
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { CodeEditor } from "@/components/workspace/code-editor";
 import { useArtifactContent } from "@/core/artifacts/hooks";
-import { urlOfArtifact } from "@/core/artifacts/utils";
+import { resolveArtifactURL, urlOfArtifact } from "@/core/artifacts/utils";
 import { useI18n } from "@/core/i18n/hooks";
 import { installSkill } from "@/core/skills/api";
 import { streamdownPlugins } from "@/core/streamdown";
@@ -124,8 +124,8 @@ export function ArtifactFileDetail({
     }
   }, [threadId, filepath, isInstalling]);
   return (
-    <Artifact className={cn(className)}>
-      <ArtifactHeader className="px-2">
+    <Artifact className={cn("bg-transparent", className)}>
+      <ArtifactHeader className="px-2 bg-transparent border-b-0">
         <div className="flex items-center gap-2">
           <ArtifactTitle>
             {isWriteFile ? (
@@ -252,6 +252,7 @@ export function ArtifactFileDetail({
               isWriteFile={isWriteFile}
               language={language ?? "text"}
               url={url}
+              threadId={threadId}
             />
           )}
         {isCodeFile && viewMode === "code" && (
@@ -272,16 +273,55 @@ export function ArtifactFileDetail({
   );
 }
 
+/**
+ * Custom image component for artifact markdown preview that handles local paths.
+ * Similar to MessageImage in message-list-item.tsx.
+ */
+function ArtifactPreviewImage({
+  src,
+  alt,
+  threadId,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement> & {
+  threadId: string;
+}) {
+  if (!src) return null;
+
+  // Handle non-string src (e.g., Blob from data URLs)
+  if (typeof src !== "string") {
+    return <img className="overflow-hidden rounded-lg" src={src} alt={alt} {...props} />;
+  }
+
+  let url: string;
+  if (src.startsWith("/mnt/")) {
+    url = resolveArtifactURL(src, threadId);
+  } else if (src.includes("://")) {
+    // External URL
+    url = src;
+  } else {
+    // Relative path - assume it's in outputs directory
+    url = resolveArtifactURL(`/mnt/user-data/outputs/${src}`, threadId);
+  }
+
+  return (
+    <a href={url} target="_blank" rel="noopener noreferrer">
+      <img className="overflow-hidden rounded-lg" src={url} alt={alt} {...props} />
+    </a>
+  );
+}
+
 export function ArtifactFilePreview({
   content,
   isWriteFile,
   language,
   url,
+  threadId,
 }: {
   content: string;
   isWriteFile: boolean;
   language: string;
   url?: string;
+  threadId: string;
 }) {
   if (language === "markdown") {
     return (
@@ -289,7 +329,12 @@ export function ArtifactFilePreview({
         <Streamdown
           className="size-full"
           {...streamdownPlugins}
-          components={{ a: ArtifactLink }}
+          components={{
+            a: ArtifactLink,
+            img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+              <ArtifactPreviewImage {...props} threadId={threadId} />
+            ),
+          }}
         >
           {content ?? ""}
         </Streamdown>
