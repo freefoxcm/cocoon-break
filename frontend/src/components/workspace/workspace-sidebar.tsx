@@ -22,7 +22,7 @@ export function WorkspaceSidebar({
     <>
       <Sidebar
         variant="sidebar"
-        collapsible="offcanvas"
+        collapsible="icon"
         className="bg-background/80 backdrop-blur-md"
         {...props}
       >
