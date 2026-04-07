@@ -21,9 +21,9 @@ export function WorkspaceSidebar({
   return (
     <>
       <Sidebar
-        variant="floating"
+        variant="sidebar"
         collapsible="offcanvas"
-        className="bg-background/80 backdrop-blur-md shadow-2xl"
+        className="bg-background/80 backdrop-blur-md"
         {...props}
       >
         <SidebarHeader className="py-0">
