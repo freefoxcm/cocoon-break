@@ -21,8 +21,8 @@ export function WorkspaceSidebar({
   return (
     <>
       <Sidebar
-        variant="sidebar"
-        collapsible="icon"
+        variant="floating"
+        collapsible="offcanvas"
         className="[&_[data-slot=sidebar-inner]]:!bg-background/80 [&_[data-slot=sidebar-inner]]:backdrop-blur-md"
         {...props}
       >
