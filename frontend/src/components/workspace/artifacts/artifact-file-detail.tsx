@@ -325,7 +325,7 @@ export function ArtifactFilePreview({
 }) {
   if (language === "markdown") {
     return (
-      <div className="size-full px-4">
+      <div className="size-full px-4 pb-4">
         <Streamdown
           className="size-full"
           {...streamdownPlugins}
