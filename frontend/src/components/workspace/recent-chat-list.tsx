@@ -4,6 +4,7 @@ import {
   Download,
   FileJson,
   FileText,
+  MessageSquare,
   MoreHorizontal,
   Pencil,
   Share2,
@@ -176,9 +177,10 @@ export function RecentChatList() {
                     className="group/side-menu-item"
                   >
                     <SidebarMenuButton isActive={isActive} asChild>
-                      <div>
+                      <div className="flex w-full items-center gap-2">
+                        <MessageSquare className="text-muted-foreground size-4 shrink-0" />
                         <Link
-                          className="text-muted-foreground block w-full whitespace-nowrap group-hover/side-menu-item:overflow-hidden"
+                          className="text-muted-foreground block min-w-0 flex-1 truncate"
                           href={pathOfThread(thread.thread_id)}
                         >
                           {titleOfThread(thread)}

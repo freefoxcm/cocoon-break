@@ -14,11 +14,11 @@ const buttonVariants = cva(
         destructive:
           "cursor-pointer bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
-          "cursor-pointer border bg-background/80 shadow-xs hover:bg-accent hover:text-accent-foreground backdrop-blur-sm dark:bg-input/40 dark:border-input dark:hover:bg-input/50 dark:hover:border-[oklch(0.45_0.10_200_/_50%)] dark:glow-hover",
+          "cursor-pointer border bg-background/10 shadow-xs hover:bg-accent/20 hover:text-accent-foreground backdrop-blur-sm dark:bg-input/10 dark:border-input dark:hover:bg-accent/30 dark:hover:border-[oklch(0.45_0.10_200_/_50%)] dark:glow-hover",
         secondary:
           "cursor-pointer bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:glow-hover",
         ghost:
-          "cursor-pointer hover:bg-accent/80 hover:text-accent-foreground backdrop-blur-sm dark:hover:bg-accent/50 dark:hover:border-[oklch(0.45_0.10_200_/_50%)] dark:glow-hover",
+          "cursor-pointer hover:bg-accent/20 hover:text-accent-foreground backdrop-blur-sm dark:hover:bg-accent/30 dark:hover:border-[oklch(0.45_0.10_200_/_50%)] dark:glow-hover",
         link: "cursor-pointer text-primary underline-offset-4 hover:underline",
       },
       size: {
