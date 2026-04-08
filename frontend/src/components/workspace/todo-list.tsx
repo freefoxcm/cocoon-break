@@ -46,7 +46,7 @@ export function TodoList({
     >
       <header
         className={cn(
-          "bg-accent flex min-h-8 shrink-0 cursor-pointer items-center justify-between px-4 text-sm transition-all duration-300 ease-out",
+          "bg-accent/50 dark:bg-accent/50 backdrop-blur-sm flex min-h-8 shrink-0 cursor-pointer items-center justify-between px-4 text-sm transition-all duration-300 ease-out",
         )}
         onClick={handleToggle}
       >
@@ -67,7 +67,7 @@ export function TodoList({
       </header>
       <main
         className={cn(
-          "bg-accent flex grow px-2 transition-all duration-300 ease-out",
+          "bg-accent/50 dark:bg-accent/50 backdrop-blur-sm flex grow px-2 transition-all duration-300 ease-out",
           collapsed ? "h-0 pb-3" : "h-28 pb-4",
         )}
       >
