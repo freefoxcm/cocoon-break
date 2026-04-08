@@ -112,11 +112,13 @@ export function InputBox({
   onFollowupsVisibilityChange,
   onFollowupsChange,
   onFollowupsLoadingChange,
+  onHideFollowups,
   onSubmit,
   onStop,
   suggestions,
   onSuggestionClick,
   hideInternalSuggestions,
+  hideFollowups,
   ...props
 }: Omit<ComponentProps<typeof PromptInput>, "onSubmit"> & {
   assistantId?: string | null;
@@ -145,11 +147,13 @@ export function InputBox({
   onFollowupsVisibilityChange?: (visible: boolean) => void;
   onFollowupsChange?: (followups: string[]) => void;
   onFollowupsLoadingChange?: (loading: boolean) => void;
+  onHideFollowups?: () => void;
   onSubmit?: (message: PromptInputMessage) => void;
   onStop?: () => void;
   suggestions?: string[];
   onSuggestionClick?: (suggestion: string) => void;
   hideInternalSuggestions?: boolean;
+  hideFollowups?: boolean;
 }) {
   const { t } = useI18n();
   const searchParams = useSearchParams();
@@ -351,11 +355,13 @@ export function InputBox({
     !disabled &&
     !isNewThread &&
     !followupsHidden &&
+    !hideFollowups &&
     (followupsLoading || followups.length > 0);
 
   const followupsVisibilityChangeRef = useRef(onFollowupsVisibilityChange);
   const onFollowupsChangeRef = useRef(onFollowupsChange);
   const onFollowupsLoadingChangeRef = useRef(onFollowupsLoadingChange);
+  const onHideFollowupsRef = useRef(onHideFollowups);
 
   useEffect(() => {
     followupsVisibilityChangeRef.current = onFollowupsVisibilityChange;
@@ -370,12 +376,23 @@ export function InputBox({
   }, [onFollowupsLoadingChange]);
 
   useEffect(() => {
+    onHideFollowupsRef.current = onHideFollowups;
+  }, [onHideFollowups]);
+
+  useEffect(() => {
     followupsVisibilityChangeRef.current?.(showFollowups);
   }, [showFollowups]);
 
   useEffect(() => {
     return () => followupsVisibilityChangeRef.current?.(false);
   }, []);
+
+  useEffect(() => {
+    if (hideFollowups) {
+      setFollowupsHidden(true);
+      onHideFollowupsRef.current?.();
+    }
+  }, [hideFollowups]);
 
   useEffect(() => {
     const streaming = status === "streaming";
@@ -473,14 +490,17 @@ export function InputBox({
                     }
                   />
                 ))}
-                {!onSuggestionClick && (
+                {(!onSuggestionClick || hideInternalSuggestions) && (
                   <Button
                     aria-label={t.common.close}
                     className="text-muted-foreground cursor-pointer rounded-full px-3 text-xs font-normal"
                     variant="outline"
                     size="sm"
                     type="button"
-                    onClick={() => setFollowupsHidden(true)}
+                    onClick={() => {
+                      setFollowupsHidden(true);
+                      onHideFollowupsRef.current?.();
+                    }}
                   >
                     <XIcon className="size-4" />
                   </Button>

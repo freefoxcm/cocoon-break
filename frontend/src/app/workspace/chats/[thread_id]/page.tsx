@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { MoonIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SunIcon, XIcon } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useCallback, useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import { type PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
+import { Button } from "@/components/ui/button";
 import { ArtifactTrigger } from "@/components/workspace/artifacts";
 import {
   ChatBox,
@@ -55,6 +55,7 @@ export default function ChatPage() {
   const [showFollowups, setShowFollowups] = useState(false);
   const [followups, setFollowups] = useState<string[]>([]);
   const [followupsLoading, setFollowupsLoading] = useState(false);
+  const [hideFollowups, setHideFollowups] = useState(false);
   const { threadId, isNewThread, setIsNewThread, isMock } = useThreadChat();
   const [settings, setSettings] = useThreadSettings(threadId);
   const [mounted, setMounted] = useState(false);
@@ -182,6 +183,16 @@ export default function ChatPage() {
                               }}
                             />
                           ))}
+                          <Button
+                            aria-label={t.common.close}
+                            className="text-muted-foreground cursor-pointer rounded-full px-3 text-xs font-normal"
+                            variant="outline"
+                            size="sm"
+                            type="button"
+                            onClick={() => setHideFollowups(true)}
+                          >
+                            <XIcon className="size-4" />
+                          </Button>
                         </Suggestions>
                         )}
                       </div>
@@ -227,6 +238,7 @@ export default function ChatPage() {
                     hideInternalSuggestions={
                       !!thread.values.todos && thread.values.todos.length > 0
                     }
+                    hideFollowups={hideFollowups}
                   />
                 ) : (
                   <div

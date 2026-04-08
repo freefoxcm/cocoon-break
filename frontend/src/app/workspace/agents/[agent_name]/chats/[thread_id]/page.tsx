@@ -1,6 +1,6 @@
 "use client";
 
-import { BotIcon, PlusSquare } from "lucide-react";
+import { BotIcon, PlusSquare, XIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
@@ -36,6 +36,7 @@ export default function AgentChatPage() {
   const [showFollowups, setShowFollowups] = useState(false);
   const [followups, setFollowups] = useState<string[]>([]);
   const [followupsLoading, setFollowupsLoading] = useState(false);
+  const [hideFollowups, setHideFollowups] = useState(false);
   const router = useRouter();
 
   const { agent_name } = useParams<{
@@ -190,6 +191,16 @@ export default function AgentChatPage() {
                                 }}
                               />
                             ))}
+                            <Button
+                              aria-label={t.common.close}
+                              className="text-muted-foreground cursor-pointer rounded-full px-3 text-xs font-normal"
+                              variant="outline"
+                              size="sm"
+                              type="button"
+                              onClick={() => setHideFollowups(true)}
+                            >
+                              <XIcon className="size-4" />
+                            </Button>
                           </Suggestions>
                         )}
                       </div>
@@ -232,6 +243,7 @@ export default function AgentChatPage() {
                   hideInternalSuggestions={
                     !!thread.values.todos && thread.values.todos.length > 0
                   }
+                  hideFollowups={hideFollowups}
                 />
                 {env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true" && (
                   <div className="text-muted-foreground/67 w-full translate-y-12 text-center text-xs">
