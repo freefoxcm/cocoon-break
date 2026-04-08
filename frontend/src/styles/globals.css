@@ -306,8 +306,13 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply h-full;
+    overflow: hidden;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground h-full;
+    overflow: hidden;
   }
 
   /* Dark mode hover glow effect for interactive elements */
@@ -538,4 +543,6 @@
 /* 背景渐变基础 */
 body {
   @apply bg-[#0d1f17];
+  overflow: hidden;
+  height: 100dvh;
 }

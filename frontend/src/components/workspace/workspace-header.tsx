@@ -20,27 +20,31 @@ export function WorkspaceHeader({ className }: { className?: string }) {
   const { state } = useSidebar();
   const pathname = usePathname();
   return (
-    <>
-      <div
-        className={cn(
-          "group/workspace-header flex h-12 flex-col justify-center",
-          className,
-        )}
-      >
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+    <div
+      className={cn(
+        "group/workspace-header flex flex-col",
+        className,
+      )}
+    >
+      <div className="flex h-12 flex-col justify-center">
+        {state === "collapsed" ? (
+          <div className="flex w-full cursor-pointer items-center justify-center">
             <SidebarTrigger />
+          </div>
+        ) : (
+          <div className="flex items-center justify-between gap-2">
             {env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY === "true" ? (
-              <Link href="/" className="text-primary font-serif">
+              <Link href="/" className="text-primary ml-2 font-serif">
                 Cocoon Break
               </Link>
             ) : (
-              <div className="text-primary cursor-default font-serif">
+              <div className="text-primary ml-2 cursor-default font-serif">
                 Cocoon Break
               </div>
             )}
+            <SidebarTrigger />
           </div>
-        </div>
+        )}
       </div>
       <SidebarMenu>
         <SidebarMenuItem>
@@ -55,6 +59,6 @@ export function WorkspaceHeader({ className }: { className?: string }) {
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
-    </>
+    </div>
   );
 }
