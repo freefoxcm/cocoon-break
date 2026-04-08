@@ -110,7 +110,7 @@ export function SettingsDialog(props: SettingsDialogProps) {
                       className={cn(
                         "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                         active
-                          ? "bg-emerald-900 text-white shadow-sm"
+                          ? "dark:bg-emerald-900 dark:text-white dark:shadow-sm bg-sidebar-accent text-sidebar-accent-foreground"
                           : "text-muted-foreground hover:bg-muted hover:text-foreground",
                       )}
                     >
