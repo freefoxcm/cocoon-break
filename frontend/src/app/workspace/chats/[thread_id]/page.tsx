@@ -151,7 +151,10 @@ export default function ChatPage() {
               >
                 <div className="absolute -top-4 right-0 left-0 z-0">
                   <div className="absolute right-0 bottom-0 left-0">
-                    {showFollowups && (followupsLoading || followups.length > 0) && (
+                    {showFollowups &&
+                      (followupsLoading || followups.length > 0) &&
+                      thread.values.todos &&
+                      thread.values.todos.length > 0 && (
                       <div className="flex items-center justify-center px-4 pt-2">
                         {followupsLoading ? (
                           <div className="text-muted-foreground bg-background/80 rounded-full border px-4 py-2 text-xs backdrop-blur-sm">
