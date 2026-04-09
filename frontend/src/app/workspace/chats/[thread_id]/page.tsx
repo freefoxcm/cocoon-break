@@ -35,6 +35,25 @@ import { cn } from "@/lib/utils";
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="size-7 opacity-50 hover:opacity-100"
+        disabled
+      >
+        <MoonIcon className="size-4" />
+      </Button>
+    );
+  }
+
   const isDark = theme === "dark";
 
   return (
