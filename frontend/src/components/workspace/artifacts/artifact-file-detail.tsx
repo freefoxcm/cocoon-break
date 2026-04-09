@@ -253,6 +253,7 @@ export function ArtifactFileDetail({
               language={language ?? "text"}
               url={url}
               threadId={threadId}
+              filepath={filepath}
             />
           )}
         {isCodeFile && viewMode === "code" && (
@@ -316,12 +317,14 @@ export function ArtifactFilePreview({
   language,
   url,
   threadId,
+  filepath,
 }: {
   content: string;
   isWriteFile: boolean;
   language: string;
   url?: string;
   threadId: string;
+  filepath: string;
 }) {
   if (language === "markdown") {
     return (
@@ -342,12 +345,29 @@ export function ArtifactFilePreview({
     );
   }
   if (language === "html") {
+    // For non-write-file HTML, replace relative image paths with absolute URLs
+    // since srcdoc doesn't reliably support base tags across browsers
+    let htmlContent = content ?? "";
+    if (!isWriteFile) {
+      const dirPath = filepath.includes("/")
+        ? filepath.split("/").slice(0, -1).join("/")
+        : "";
+      const baseUrl = resolveArtifactURL(dirPath, threadId).replace(/\/$/, "");
+      // Replace relative img src and href attributes
+      htmlContent = htmlContent.replace(
+        /(src|href)\s*=\s*["'](?!http|data:)([^"']+)["']/gi,
+        (_, attr, path) => {
+          const fullUrl = `${baseUrl}/${path}`;
+          return `${attr}="${fullUrl}"`;
+        },
+      );
+    }
     return (
       <iframe
         className="size-full"
         title="Artifact preview"
         sandbox="allow-scripts allow-forms"
-        {...(isWriteFile ? { srcDoc: content } : url ? { src: url } : {})}
+        srcDoc={htmlContent}
       />
     );
   }
